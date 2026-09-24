@@ -1,0 +1,30 @@
+{
+  "mr": {
+    "status": "draft-complete",
+    "native_review": false
+  },
+  "ta": {
+    "status": "draft-complete",
+    "native_review": false
+  },
+  "kn": {
+    "status": "draft-complete",
+    "native_review": false
+  },
+  "ml": {
+    "status": "draft-complete",
+    "native_review": false
+  },
+  "bn": {
+    "status": "draft-complete",
+    "native_review": false
+  },
+  "gu": {
+    "status": "draft-complete",
+    "native_review": false
+  },
+  "pa": {
+    "status": "draft-complete",
+    "native_review": false
+  }
+}

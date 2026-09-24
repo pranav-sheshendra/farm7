@@ -3,6 +3,7 @@
 !crop_runtime.py
 !crop_pred.tflite
 !app.py
+!auth_service.py
 !assistant_service.py
 !speech_service.py
 !chat_store.py

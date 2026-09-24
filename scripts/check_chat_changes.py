@@ -10,17 +10,19 @@ sys.path.insert(0, str(ROOT))
 from chat_store import ChatStore
 import app as backend
 from playwright.sync_api import sync_playwright
+from auth_test_support import flask_sign_in, browser_sign_in
 
 report = {}
 with tempfile.TemporaryDirectory() as folder:
     db = ChatStore(Path(folder) / 'test.sqlite3')
     with patch.object(backend, 'store', db), patch.object(backend.assistant_service, 'status', return_value={'ready': True}), patch.object(backend.assistant_service, 'complete', return_value='नमस्ते किसान'):
         a, b = backend.app.test_client(), backend.app.test_client()
+        flask_sign_in(backend.app, a)
         assert a.get('/api/history').json == {'messages': []}
         payload = {'language': 'hi', 'messages': [{'role': 'user', 'content': 'नमस्ते'}]}
         assert a.post('/api/chat', json=payload).status_code == 200
         assert len(a.get('/api/history').json['messages']) == 2
-        assert b.get('/api/history').json['messages'] == []
+        assert b.get('/api/history').status_code == 401
         reopened = ChatStore(Path(folder) / 'test.sqlite3')
         with a.session_transaction() as session:
             assert len(reopened.history(session['owner'])) == 2
@@ -51,7 +53,7 @@ with sync_playwright() as p:
         emit(text,final){const r=[{transcript:text}];r.isFinal=final;this.onresult({resultIndex:0,results:[r]});}
       };
     ''')
-    page.goto('http://127.0.0.1:5000')
+    browser_sign_in(page,'http://127.0.0.1:5000')
     page.wait_for_function("document.querySelector('#language').options.length===23")
     page.locator('#language').select_option('hi')
     page.wait_for_function("document.documentElement.lang==='hi'")

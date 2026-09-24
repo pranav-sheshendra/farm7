@@ -3,6 +3,7 @@ import json
 import time
 from pathlib import Path
 import requests
+from auth_test_support import authenticated_session
 
 root = Path(__file__).resolve().parents[1]
 url = 'http://127.0.0.1:5010'
@@ -18,9 +19,11 @@ else:
     raise RuntimeError('Container did not become healthy')
 assert response.json()['classes'] == 38
 assert requests.get(url+'/').status_code == 200
-assert requests.get(url+'/api/history').json() == {'messages': []}
+assert requests.get(url+'/api/history').status_code == 401
+client=authenticated_session(url)
+assert client.get(url+'/api/history').json() == {'messages': []}
 with (root/'.venv/test-leaf.jpg').open('rb') as photo:
-    prediction = requests.post(url+'/predict', files={'image': photo}, timeout=30)
+    prediction = client.post(url+'/predict', files={'image': photo}, timeout=30)
 assert prediction.status_code == 200, prediction.text
 assert prediction.json()['predictions'][0]['label'].endswith('___Late_blight')
 report = {'container_health': 'passed', 'sqlite_initialization': 'passed', 'crop_prediction': prediction.json()['predictions'][0], 'scope': 'Linux container startup and inference; external domain/HTTPS not provisioned'}

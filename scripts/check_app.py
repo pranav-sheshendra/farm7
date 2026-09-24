@@ -4,6 +4,7 @@ from pathlib import Path
 import requests
 import time
 from playwright.sync_api import sync_playwright
+from auth_test_support import authenticated_session, browser_sign_in
 
 ROOT=Path(__file__).resolve().parents[1]
 URL='http://127.0.0.1:5000'
@@ -14,13 +15,14 @@ for attempt in range(30):
     except requests.RequestException: pass
     time.sleep(1)
 assert requests.get(URL+'/health',timeout=10).json()['classes']==38
-assert requests.post(URL+'/predict',timeout=10).status_code==400
-assert requests.post(URL+'/api/chat',json={'messages':[{'role':'system','content':'bad'}]},timeout=10).status_code==400
-assert requests.post(URL+'/api/chat',json={'language':{},'messages':[]},timeout=10).status_code==400
-assert requests.post(URL+'/api/chat',json={'messages':[{'role':{},'content':'bad'}]},timeout=10).status_code==400
-r=requests.post(URL+'/api/speech/measure',json={'reference':'the leaf is yellow','transcript':'the leaf was yellow'},timeout=10)
+client=authenticated_session(URL)
+assert client.post(URL+'/predict',timeout=10).status_code==400
+assert client.post(URL+'/api/chat',json={'messages':[{'role':'system','content':'bad'}]},timeout=10).status_code==400
+assert client.post(URL+'/api/chat',json={'language':{},'messages':[]},timeout=10).status_code==400
+assert client.post(URL+'/api/chat',json={'messages':[{'role':{},'content':'bad'}]},timeout=10).status_code==400
+r=client.post(URL+'/api/speech/measure',json={'reference':'the leaf is yellow','transcript':'the leaf was yellow'},timeout=10)
 assert r.status_code==200 and r.json()['wer']==0.25
-r=requests.post(URL+'/api/speech/measure',json={'reference':'पत्ता पीला है','transcript':'पत्ता पीला है'},timeout=10)
+r=client.post(URL+'/api/speech/measure',json={'reference':'पत्ता पीला है','transcript':'पत्ता पीला है'},timeout=10)
 assert r.json()['wer']==0 and r.json()['cer']==0
 report['api_checks']='passed'
 with sync_playwright() as p:
@@ -28,7 +30,7 @@ with sync_playwright() as p:
     page=browser.new_page(viewport={'width':1440,'height':1000})
     errors=[]
     page.on('pageerror',lambda e:errors.append(str(e)))
-    page.goto(URL)
+    browser_sign_in(page,URL)
     page.wait_for_function("document.querySelector('#analyze').textContent === 'Analyze disease'")
     assert page.locator('#assistantPanel').is_visible()
     page.locator('#analysisTab').click()
@@ -64,9 +66,9 @@ with sync_playwright() as p:
     report['javascript_errors']=errors
     browser.close()
 report['voice_accuracy']='Not measured: real microphone samples and native-speaker review required.'
-remote=requests.get(URL+'/api/speech/voices',timeout=10).json()['voices']
+remote=client.get(URL+'/api/speech/voices',timeout=10).json()['voices']
 report['online_indian_voices']=[v for v in remote if v['lang'].endswith('-IN')]
-audio=requests.post(URL+'/api/speech/speak',json={'voice':'hi-IN-SwaraNeural','text':'कृपया पत्ते की साफ तस्वीर भेजें।'},timeout=60)
+audio=client.post(URL+'/api/speech/speak',json={'voice':'hi-IN-SwaraNeural','text':'कृपया पत्ते की साफ तस्वीर भेजें।'},timeout=60)
 assert audio.status_code==200 and audio.headers['Content-Type'].startswith('audio/mpeg') and len(audio.content)>1000
 (ROOT/'artifacts/voice-hindi-test.mp3').write_bytes(audio.content)
 report['online_speech_test']={'voice':'hi-IN-SwaraNeural','audio_bytes':len(audio.content),'status':'audio generated; listening-quality review pending'}

@@ -16,6 +16,7 @@ import cv2
 import numpy as np
 from crop_runtime import CropRuntime
 from flask import Flask, jsonify, render_template, request, Response, session
+from auth_service import install_auth
 from PIL import Image, UnidentifiedImageError
 import requests
 import assistant_service
@@ -57,7 +58,7 @@ if not secret:
     secret = secret_file.read_text(encoding='ascii').strip()
 app.config.update(SECRET_KEY=secret, SESSION_COOKIE_HTTPONLY=True,
                   SESSION_COOKIE_SAMESITE='Lax', SESSION_COOKIE_SECURE=production,
-                  PERMANENT_SESSION_LIFETIME=timedelta(days=30))
+                  PERMANENT_SESSION_LIFETIME=timedelta(hours=8))
 if os.environ.get('RENDER') and not os.environ.get('MONGODB_URI'):
     raise RuntimeError('Render requires MONGODB_URI; SQLite would lose saved chats on restart.')
 store = MongoChatStore(os.environ['MONGODB_URI']) if os.environ.get('MONGODB_URI') else ChatStore(data_dir / 'chats.sqlite3')
@@ -70,6 +71,7 @@ if model.input_shape[1:] != (128, 128, 3) or model.output_shape[-1] != len(LABEL
     raise RuntimeError("Saved model does not match notebook input or class labels.")
 inference_lock = Lock()
 prediction_slots = BoundedSemaphore(1)
+install_auth(app)
 
 
 @app.before_request
@@ -99,8 +101,8 @@ def security_headers(response):
     response.headers['Referrer-Policy'] = 'same-origin'
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['Permissions-Policy'] = 'microphone=(self)'
-    if request.path.startswith('/api/'):
-        response.headers['Cache-Control'] = 'no-store'
+    if not request.path.startswith('/static/'):
+        response.headers['Cache-Control'] = 'no-store, private'
     return response
 
 

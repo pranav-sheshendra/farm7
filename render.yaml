@@ -20,3 +20,5 @@ services:
         sync: false
       - key: MONGODB_DATABASE
         value: farm_ai
+      - key: ADMIN_PASSWORD
+        sync: false

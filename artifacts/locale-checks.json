@@ -1,0 +1,101 @@
+{
+  "en": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 1.0,
+    "native_review": true
+  },
+  "as": {
+    "available": false
+  },
+  "bn": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.982,
+    "native_review": false
+  },
+  "brx": {
+    "available": false
+  },
+  "doi": {
+    "available": false
+  },
+  "gu": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.971,
+    "native_review": false
+  },
+  "hi": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.971,
+    "native_review": false
+  },
+  "kn": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.981,
+    "native_review": false
+  },
+  "ks": {
+    "available": false
+  },
+  "gom": {
+    "available": false
+  },
+  "mai": {
+    "available": false
+  },
+  "ml": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.984,
+    "native_review": false
+  },
+  "mni-Mtei": {
+    "available": false
+  },
+  "mr": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.972,
+    "native_review": false
+  },
+  "ne": {
+    "available": false
+  },
+  "or": {
+    "available": false
+  },
+  "pa": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.978,
+    "native_review": false
+  },
+  "sa": {
+    "available": false
+  },
+  "sat": {
+    "available": false
+  },
+  "sd": {
+    "available": false
+  },
+  "ta": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.98,
+    "native_review": false
+  },
+  "te": {
+    "available": true,
+    "keys": 127,
+    "expected_script_fraction": 0.972,
+    "native_review": false
+  },
+  "ur": {
+    "available": false
+  }
+}

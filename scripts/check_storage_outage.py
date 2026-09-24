@@ -8,6 +8,7 @@ root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root))
 import app as backend
 from chat_store import MongoChatStore
+from auth_test_support import flask_sign_in
 
 client, collection = Mock(), Mock()
 client.__getitem__ = Mock(return_value=Mock(chats=collection))
@@ -17,6 +18,7 @@ with patch('pymongo.MongoClient', return_value=client) as factory:
     factory.assert_not_called()
     with patch.object(backend, 'store', store), patch.object(backend.assistant_service,'complete') as complete:
         browser = backend.app.test_client()
+        flask_sign_in(backend.app, browser)
         assert browser.get('/health').status_code == 200
         assert browser.get('/').status_code == 200
         for response in [browser.get('/api/history'),browser.get('/api/storage/status'),

@@ -1,0 +1,20 @@
+{
+  "single_account": true,
+  "unauthenticated_api_blocked": true,
+  "csrf_checked": true,
+  "expired_session_blocked": true,
+  "mobile_languages": [
+    "en",
+    "hi",
+    "te",
+    "mr",
+    "ta",
+    "kn",
+    "ml",
+    "bn",
+    "gu",
+    "pa"
+  ],
+  "dropdown_group_titles": false,
+  "native_translation_accuracy_verified": false
+}

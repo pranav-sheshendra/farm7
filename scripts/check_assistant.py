@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import time
 import requests
+from auth_test_support import authenticated_session
 ROOT=Path(__file__).resolve().parents[1]
 samples=[
  ('en','My tomato leaves are turning yellow. Ask three useful questions before suggesting a cause. Keep it brief.'),
@@ -10,9 +11,10 @@ samples=[
  ('te','నా టమాటా ఆకులు పసుపు రంగులోకి మారుతున్నాయి. కారణం చెప్పే ముందు మూడు ప్రశ్నలు అడగండి. చిన్న సమాధానం ఇవ్వండి.'),
 ]
 results=[]
+client=authenticated_session('http://127.0.0.1:5000')
 for language,prompt in samples:
     started=time.time()
-    r=requests.post('http://127.0.0.1:5000/api/chat',json={'language':language,'messages':[{'role':'user','content':prompt}]},timeout=300)
+    r=client.post('http://127.0.0.1:5000/api/chat',json={'language':language,'messages':[{'role':'user','content':prompt}]},timeout=300)
     r.raise_for_status()
     data=r.json()
     assert data['answer'].strip() and '<think>' not in data['answer']

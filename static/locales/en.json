@@ -1,5 +1,7 @@
 {
   "brand": "Farm AI",
+  "signOut": "Sign out",
+  "signInRequired": "Please sign in to continue.",
   "tagline": "Your farming companion",
   "analysis": "Crop analysis",
   "assistant": "Assistant",

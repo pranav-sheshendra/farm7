@@ -27,14 +27,14 @@ persistent Render disk, or paid database in `render.yaml`.
    already ran locally; TensorFlow/training is not needed on Render.
 4. In Render choose **New → Blueprint**, connect this repository, and select
    the branch containing `render.yaml`. Verify the service plan says **Free**.
-   Enter `MONGODB_URI` and `GROQ_API_KEY` into the private secret fields.
+   Enter `MONGODB_URI`, `GROQ_API_KEY`, and `ADMIN_PASSWORD` into the private secret fields.
    Render generates a stable SECRET_KEY. Keep it across redeployments.
 5. In the Render service's **Connect / Outbound** information, find its outbound
    IP ranges and add those to Atlas **Network Access**. An initial deployment
    may fail until this is configured; redeploy after adding the ranges. Do not
    expose MongoDB without authentication or disable TLS verification.
 6. Open the generated `https://farm-ai-....onrender.com` link. No custom domain
-   purchase is needed. `/health` checks crop-model startup. Send a real assistant
+   purchase is needed. Sign in with the administrator account. `/health` checks crop-model startup. Send a real assistant
    message to verify the API key/model/quota, reload to check saved history,
    upload a leaf, and test the microphone on your actual device.
 
@@ -59,12 +59,27 @@ Groq credentials and an Atlas cluster are required for a live end-to-end cloud
 check. Status checks model availability; only a real chat verifies remaining quota. This workspace
 cannot create your accounts or promise a live URL without access to them.
 
-Chats are sent to Groq; saved conversations are stored in Atlas. Explain this
-to users. The database keeps the latest 100 messages per anonymous browser and
-expires a conversation after 30 days without a successful chat. It is not account
-login or cross-device synchronization. Existing local SQLite history is not
-automatically copied into Atlas. Changing SECRET_KEY invalidates browser ownership.
-Deleting chat removes the Atlas document. Atlas TTL cleanup is asynchronous.
+Chats are sent to Groq; saved conversations are stored in Atlas. The database
+keeps the latest 100 messages for the administrator account and expires the
+conversation after 30 days without a successful chat. Browsers signed in to that
+same account share its chat history. Existing anonymous/SQLite conversations are
+not automatically merged into the administrator's history. Deleting chat removes
+the account's Atlas document. Atlas TTL cleanup is asynchronous.
+
+## Sign-in
+
+The only permitted email is `admin@mail.com`. In Render → Environment, set
+`ADMIN_PASSWORD` to the chosen demo password supplied by the project owner.
+Do not commit that value or put it in frontend code. There is no public registration
+or password-reset endpoint. Missing password configuration denies all sign-ins.
+Existing Blueprint services must add this secret manually; `sync: false` does not
+automatically populate new secrets on an already-created service.
+
+The page and APIs require sign-in; `/health` and static assets remain public.
+Authenticated write requests also require a CSRF token. Sessions expire after
+eight hours and must sign in again after deployment/restart. Sign out clears the
+browser session. Keep SECRET_KEY private and stable. Set ADMIN_PASSWORD in the
+environment when running local browser/API check scripts as well.
 
 ## Staying free
 
@@ -106,7 +121,7 @@ access; this message alone does not establish a certificate or password cause.
    → Python** into Render's MONGODB_URI. Use the raw URI without quotes/Markdown;
    URL-encode special characters in the database password. SRV and standard
    replica-set URIs are both supported; do not invent a hostname.
-4. Redeploy the latest commit, then visit `/api/storage/status`. `ready: true`
+4. Redeploy the latest commit, sign in, then visit `/api/storage/status`. `ready: true`
    confirms an actual MongoDB ping; HTTP 503 means database access still needs
    attention. `/health` only confirms the crop/web service, not database access.
 

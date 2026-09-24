@@ -73,9 +73,11 @@ the app only requires the saved model, not the training dataset or Jupyter.
 ## Assistant, languages and voices
 
 The app has Crop Analysis and Assistant tabs. A disease result can be copied into
-the chat composer for review before sending. Chat is saved in SQLite, isolated by
-a signed browser cookie, and restored on reload. Delete chat removes the stored
-conversation. Model requests go to local Ollama, not a paid model API.
+the chat composer for review before sending. The app requires the administrator
+account (`admin@mail.com`) and a server-configured `ADMIN_PASSWORD`. Chat is saved
+in SQLite locally or MongoDB on Render and shared between signed-in browsers for
+that account. Delete chat removes the stored conversation. The local assistant
+uses Ollama; the Render assistant uses Groq.
 
 The default assistant is **Qwen3.5 4B**, served by Ollama. The earlier DeepSeek-R1
 1.5B test produced poor farming guidance, so it is not the default. Set
@@ -94,13 +96,14 @@ available. The default URL is http://127.0.0.1:5000.
 
 Language scope is English plus India's 22 scheduled languages, not every Indian
 language or dialect. Complete static catalogs enable their language option;
-incomplete options are disabled. English, Hindi and Telugu were browser-tested.
-Other catalogs can be drafted with `scripts/build_local_locales.py`, which writes
-to `artifacts/draft-locales/`, not the live interface. Automatic generation was
-stopped after review found incorrect disease terminology in an Assamese draft.
-Review translations before placing a completed catalog in `static/locales/`.
-All generated
-translations need native-speaker review, particularly the low-resource languages.
+incomplete options are disabled. The dropdown lists individual languages without
+group headings. `scripts/check_locales.py` checks complete keys and expected
+scripts, and `scripts/check_signin.py` checks language switching and mobile layout.
+See `artifacts/locale-checks.json` for the checked catalogs. These checks do not
+establish translation accuracy. All generated translations need native-speaker
+review, particularly disease terminology and the low-resource languages.
+`scripts/build_hosted_locales.py` generates resumable drafts using the deployed
+assistant; it sends only public interface labels and is subject to free quotas.
 Existing conversation text stays in its original language. New replies use the
 selected language. Changing the interface no longer queues translations of every
 old message, which could delay new replies.
@@ -182,8 +185,8 @@ configured privately before live deployment. Free services have sleep/quota limi
 Use `python serve.py` for the local Waitress server. Local chats are stored under
 `instance/` (ignored by Git); Render uses MongoDB Atlas for persistent history.
 See [FREE_DEPLOYMENT.md](FREE_DEPLOYMENT.md) for the hosted setup. Keep the
-production session secret stable. Anonymous history is per browser, not an
-account login or cross-device sync.
+production session secret stable and configure `ADMIN_PASSWORD` privately.
+There is no registration; the one administrator account is the only allowed login.
 
 `scripts/check_chat_changes.py` verifies database isolation, persistence, deletion,
 cross-site rejection and simulated recognition lifecycle behavior. It does not

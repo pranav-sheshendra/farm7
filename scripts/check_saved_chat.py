@@ -2,13 +2,14 @@
 import json
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+from auth_test_support import browser_sign_in
 
 root = Path(__file__).resolve().parents[1]
 with sync_playwright() as p:
     browser = p.chromium.launch(channel='chrome', headless=True)
     context = browser.new_context()
     page = context.new_page()
-    page.goto('http://127.0.0.1:5000')
+    browser_sign_in(page,'http://127.0.0.1:5000')
     page.wait_for_selector('#language option[value="hi"]', state='attached')
     page.locator('#language').select_option('hi')
     page.wait_for_function("document.documentElement.lang==='hi'")
@@ -21,7 +22,7 @@ with sync_playwright() as p:
     page.wait_for_selector('.bubble.assistant')
     assert page.locator('.bubble.assistant .message-content').inner_text() == reply
     outsider = browser.new_context()
-    assert outsider.request.get('http://127.0.0.1:5000/api/history').json() == {'messages': []}
+    assert outsider.request.get('http://127.0.0.1:5000/api/history').status == 401
     page.locator('#clearChat').click()
     page.wait_for_function("document.querySelectorAll('.bubble').length===0")
     page.reload()
