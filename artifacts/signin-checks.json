@@ -15,6 +15,12 @@
     "gu",
     "pa"
   ],
+  "viewport_widths": [
+    360,
+    390,
+    768,
+    1280
+  ],
   "dropdown_group_titles": false,
   "native_translation_accuracy_verified": false
 }

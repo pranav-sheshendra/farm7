@@ -1,6 +1,7 @@
 """Exercise sign-in, API protection, CSRF, expiry and the browser form."""
 import re
 import json
+import logging
 import sys
 import threading
 import time
@@ -13,6 +14,7 @@ from playwright.sync_api import sync_playwright
 root=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(root))
 import app as backend
+logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
 test_password='test-password-only-not-a-live-credential'
 backend.app.config['ADMIN_PASSWORD_HASH']=generate_password_hash(test_password)
@@ -74,10 +76,16 @@ try:
             assert page.locator('#analysisTab').inner_text()==strings['analysis'],code
             assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),(code,page.evaluate("Array.from(document.querySelectorAll('body *')).filter(e=>e.getBoundingClientRect().right>innerWidth+1).map(e=>[e.tagName,e.id,e.className]).slice(0,15)"))
             assert page.locator('#globalError').inner_text()=='',code
+            for width in [360,768,1280]:
+                page.set_viewport_size({'width':width,'height':844})
+                for tab in ['analysisTab','assistantTab']:
+                    page.locator('#'+tab).click()
+                    assert page.evaluate('document.documentElement.scrollWidth<=innerWidth'),(code,width,tab,page.evaluate("Array.from(document.querySelectorAll('body *')).filter(e=>e.getBoundingClientRect().right>innerWidth+1).map(e=>[e.tagName,e.id,e.className]).slice(0,15)"))
+            page.set_viewport_size({'width':390,'height':844})
         page.locator('.signout-form button').click();page.wait_for_url('**/login')
         page.reload();assert page.url.endswith('/login')
         assert not errors,errors
         browser.close()
 finally: server.shutdown()
-(root/'artifacts/signin-checks.json').write_text(json.dumps({'single_account':True,'unauthenticated_api_blocked':True,'csrf_checked':True,'expired_session_blocked':True,'mobile_languages':codes,'dropdown_group_titles':False,'native_translation_accuracy_verified':False},indent=2)+'\n',encoding='utf-8')
+(root/'artifacts/signin-checks.json').write_text(json.dumps({'single_account':True,'unauthenticated_api_blocked':True,'csrf_checked':True,'expired_session_blocked':True,'mobile_languages':codes,'viewport_widths':[360,390,768,1280],'dropdown_group_titles':False,'native_translation_accuracy_verified':False},indent=2)+'\n',encoding='utf-8')
 print('PASS: single account, password rejection, API gate, CSRF, session rotation/expiry, logout, mobile browser sign-in')
