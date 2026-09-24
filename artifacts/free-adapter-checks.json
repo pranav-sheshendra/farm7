@@ -1,0 +1,6 @@
+{
+  "mongodb_contract": "passed: isolation, atomic turn payload, 100-message cap, TTL index, deletion (mongomock)",
+  "groq_contract": "passed: endpoint, native-language prompt, non-thinking mode, provider errors (mock HTTP)",
+  "live_atlas": "not tested; credentials required",
+  "live_groq": "not tested; credentials required"
+}

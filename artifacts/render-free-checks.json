@@ -1,0 +1,13 @@
+{
+  "image": "farm-ai:render-free",
+  "memory_limit_bytes": 536870912,
+  "observed_peak_bytes": 90316800,
+  "cpu_limit": 0.5,
+  "runtime": "tflite-runtime 2.14.0, Python 3.11 Linux",
+  "crop_prediction": "Tomato___Late_blight",
+  "confidence": 0.9999990463256836,
+  "health_and_page": "passed",
+  "database_in_container_test": "SQLite fallback only; Atlas credentials not configured",
+  "groq_live_test": "not performed; API key not configured",
+  "scope": "Single crop request and startup under a memory cap; not a concurrency benchmark or live Render deployment"
+}

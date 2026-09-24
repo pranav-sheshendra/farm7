@@ -1,0 +1,10 @@
+-r requirements-app.txt
+tensorflow-datasets==4.9.7
+tensorflow-metadata==1.16.1
+protobuf>=4.25.3,<6
+pandas
+matplotlib
+kagglehub
+nbclient
+ipykernel
+importlib_resources

@@ -1,0 +1,5 @@
+{
+  "database": "passed: saved turn, reopen, isolation, deletion, failed-turn rollback, cross-site rejection, busy response",
+  "speech_lifecycle": "passed with simulated recognition: interim separation, selected Hindi, silence restart, final result after Stop, no auto-send, unsupported language error",
+  "microphone_accuracy": "Not measured; simulated recognition does not validate browser/provider speech accuracy."
+}

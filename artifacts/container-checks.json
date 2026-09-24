@@ -1,0 +1,11 @@
+{
+  "container_health": "passed",
+  "sqlite_initialization": "passed",
+  "crop_prediction": {
+    "condition": "Late blight",
+    "confidence": 0.9999990463256836,
+    "crop": "Tomato",
+    "label": "Tomato___Late_blight"
+  },
+  "scope": "Linux container startup and inference; external domain/HTTPS not provisioned"
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "language": "en",
+    "prompt": "My tomato leaves are turning yellow. Ask three useful questions before suggesting a cause. Keep it brief.",
+    "answer": "What crop are you growing? Where is your farm located? What specific symptoms do you see on the leaves, such as spots or wilting? Please answer these so I can help better. Do not guess the cause yet; more details are needed to give useful advice for your tomatoes.",
+    "model": "qwen3.5:4b",
+    "seconds": 34.6,
+    "scope": "Connectivity and script check; accuracy requires expert review"
+  },
+  {
+    "language": "hi",
+    "prompt": "मेरे टमाटर के पत्ते पीले हो रहे हैं। कारण बताने से पहले तीन सवाल पूछें। संक्षिप्त उत्तर दें।",
+    "answer": "कृपया ये तीन सवाल बताएं: आपका टमाटर किस जगह (जिला/शहर) में उगाया गया है? पत्ते पीले कैसे हो रहे हैं—सभी पत्ते या केवल कुछ निश्चित पत्ते? क्या इसमें कोई कीटनाशक डाला गया है या सिंचाई कम-अधिक हुई है?\n\nइन जवाबों पर मैं आपको सही कारण और समाधान बता पाऊंगा।",
+    "model": "qwen3.5:4b",
+    "seconds": 35.0,
+    "scope": "Connectivity and script check; accuracy requires expert review"
+  },
+  {
+    "language": "te",
+    "prompt": "నా టమాటా ఆకులు పసుపు రంగులోకి మారుతున్నాయి. కారణం చెప్పే ముందు మూడు ప్రశ్నలు అడగండి. చిన్న సమాధానం ఇవ్వండి.",
+    "answer": "మీ టమాటా ఆకుల పసుపు రంగును చూస్తున్నట్లుగా, దీనికి కారణాలు వేరువేరుగా ఉండవచ్చు. నేను మీకు సరియైన సలహా ఇవ్వడానికి ముందు ఈ మూడు ప్రశ్నలకు సమాధానం చెప్పండి:\n\n1. మీ టమాటా ఏ ప్రాంతంలో (గ్రామ/తాలూకా) పెరుగుతుంది?\n2. ఆకులు ఎప్పుడేసి, పొలానికి నీరు ఎలా ఇస్తున్నారు?\n3. ఆకులను చుట్టుపక్కల మరెన్నో వృక్షాలు లేదా జంతువులు తినేవి కాదా?\n\nమీ సమాధానాలతోనే నేను మీ పొలంలోని ప్రత్యేక సమస్యను గుర్తించి, సరియైన చికిత్స చెప్పగలను.",
+    "model": "qwen3.5:4b",
+    "seconds": 61.4,
+    "scope": "Connectivity and script check; accuracy requires expert review"
+  }
+]

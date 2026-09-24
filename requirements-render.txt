@@ -1,0 +1,10 @@
+# Linux Python 3.11; no TensorFlow or Ollama in the free web service.
+numpy==1.26.4
+tflite-runtime==2.14.0
+flask>=3.1,<4
+pillow>=11,<13
+opencv-python-headless==4.11.0.86
+requests>=2.31,<3
+edge-tts==7.2.8
+waitress==3.0.2
+pymongo[srv]>=4.10,<5

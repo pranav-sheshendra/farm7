@@ -1,0 +1,16 @@
+{
+  "en": {
+    "status": "complete-draft",
+    "native_review": false
+  },
+  "as": {
+    "status": "complete-draft",
+    "model": "qwen3.5:4b",
+    "native_review": false
+  },
+  "bn": {
+    "status": "running",
+    "native_review": false
+  },
+  "run_status": "stopped: quality check found incorrect disease terminology; native review or a dedicated translation model is required"
+}

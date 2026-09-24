@@ -1,0 +1,200 @@
+{
+  "api_checks": "passed",
+  "disease_result": "Late Blight",
+  "voices": [
+    {
+      "name": "Microsoft David - English (United States)",
+      "lang": "en-US",
+      "local": true
+    },
+    {
+      "name": "Microsoft Mark - English (United States)",
+      "lang": "en-US",
+      "local": true
+    },
+    {
+      "name": "Microsoft Zira - English (United States)",
+      "lang": "en-US",
+      "local": true
+    }
+  ],
+  "recognition_api": true,
+  "browser_checks": "passed: upload, inference, language changes, disease handoff, tabs, mobile layout",
+  "javascript_errors": [],
+  "voice_accuracy": "Not measured: real microphone samples and native-speaker review required.",
+  "online_indian_voices": [
+    {
+      "gender": "Male",
+      "lang": "bn-IN",
+      "localService": false,
+      "name": "bn-IN-BashkarNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:bn-IN-BashkarNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "bn-IN",
+      "localService": false,
+      "name": "bn-IN-TanishaaNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:bn-IN-TanishaaNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "en-IN",
+      "localService": false,
+      "name": "en-IN-NeerjaExpressiveNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:en-IN-NeerjaExpressiveNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "en-IN",
+      "localService": false,
+      "name": "en-IN-NeerjaNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:en-IN-NeerjaNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "en-IN",
+      "localService": false,
+      "name": "en-IN-PrabhatNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:en-IN-PrabhatNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "gu-IN",
+      "localService": false,
+      "name": "gu-IN-DhwaniNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:gu-IN-DhwaniNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "gu-IN",
+      "localService": false,
+      "name": "gu-IN-NiranjanNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:gu-IN-NiranjanNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "hi-IN",
+      "localService": false,
+      "name": "hi-IN-MadhurNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:hi-IN-MadhurNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "hi-IN",
+      "localService": false,
+      "name": "hi-IN-SwaraNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:hi-IN-SwaraNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "kn-IN",
+      "localService": false,
+      "name": "kn-IN-GaganNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:kn-IN-GaganNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "kn-IN",
+      "localService": false,
+      "name": "kn-IN-SapnaNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:kn-IN-SapnaNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "ml-IN",
+      "localService": false,
+      "name": "ml-IN-MidhunNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:ml-IN-MidhunNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "ml-IN",
+      "localService": false,
+      "name": "ml-IN-SobhanaNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:ml-IN-SobhanaNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "mr-IN",
+      "localService": false,
+      "name": "mr-IN-AarohiNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:mr-IN-AarohiNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "mr-IN",
+      "localService": false,
+      "name": "mr-IN-ManoharNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:mr-IN-ManoharNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "ta-IN",
+      "localService": false,
+      "name": "ta-IN-PallaviNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:ta-IN-PallaviNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "ta-IN",
+      "localService": false,
+      "name": "ta-IN-ValluvarNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:ta-IN-ValluvarNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "te-IN",
+      "localService": false,
+      "name": "te-IN-MohanNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:te-IN-MohanNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "te-IN",
+      "localService": false,
+      "name": "te-IN-ShrutiNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:te-IN-ShrutiNeural"
+    },
+    {
+      "gender": "Female",
+      "lang": "ur-IN",
+      "localService": false,
+      "name": "ur-IN-GulNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:ur-IN-GulNeural"
+    },
+    {
+      "gender": "Male",
+      "lang": "ur-IN",
+      "localService": false,
+      "name": "ur-IN-SalmanNeural",
+      "provider": "Microsoft Edge online",
+      "voiceURI": "edge:ur-IN-SalmanNeural"
+    }
+  ],
+  "online_speech_test": {
+    "voice": "hi-IN-SwaraNeural",
+    "audio_bytes": 22320,
+    "status": "audio generated; listening-quality review pending"
+  }
+}

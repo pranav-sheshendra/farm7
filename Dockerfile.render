@@ -1,0 +1,11 @@
+FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 HOST=0.0.0.0 PORT=10000 CROP_RUNTIME=tflite DATA_DIR=/tmp/farm-ai
+WORKDIR /app
+COPY requirements-render.txt .
+RUN pip install --no-cache-dir -r requirements-render.txt && useradd --uid 10001 --create-home farm
+COPY app.py assistant_service.py speech_service.py chat_store.py crop_runtime.py languages.py serve.py crop_pred.tflite ./
+COPY templates ./templates
+COPY static ./static
+USER farm
+EXPOSE 10000
+CMD ["python", "serve.py"]

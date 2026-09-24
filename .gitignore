@@ -1,0 +1,12 @@
+.venv/
+.app-venv/
+__pycache__/
+.ipynb_checkpoints/
+*.log
+.data/
+artifacts/notebook/
+instance/
+.env
+artifacts/*.png
+artifacts/*.mp3
+artifacts/draft-locales/

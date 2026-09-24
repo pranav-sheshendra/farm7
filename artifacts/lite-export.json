@@ -1,0 +1,7 @@
+{
+  "bytes": 12473752,
+  "max_absolute_error": 8.381903171539307e-09,
+  "samples": 8,
+  "quantized": false,
+  "scope": "Numerical conversion check, not an accuracy benchmark"
+}

@@ -1,0 +1,14 @@
+*
+!requirements-render.txt
+!crop_runtime.py
+!crop_pred.tflite
+!app.py
+!assistant_service.py
+!speech_service.py
+!chat_store.py
+!languages.py
+!serve.py
+!templates/
+!templates/**
+!static/
+!static/**
