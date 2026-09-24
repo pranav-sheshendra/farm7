@@ -92,3 +92,28 @@ Sources: [Render Free](https://render.com/docs/free),
 [Atlas Free limits](https://www.mongodb.com/docs/atlas/reference/free-shared-limitations/),
 [Groq Free limits](https://console.groq.com/docs/rate-limits),
 [Qwen on Groq](https://console.groq.com/docs/model/qwen/qwen3.8-27b).
+
+## Atlas TLS handshake / ServerSelectionTimeoutError
+
+If all Atlas nodes report `TLSV1_ALERT_INTERNAL_ERROR`, first verify network
+access; this message alone does not establish a certificate or password cause.
+
+1. Render service → **Connect → Outbound**: copy every listed CIDR range.
+2. Atlas, in the project containing the cluster → **Network Access → Add IP
+   Address**: add those ranges and wait until entries are active. Adding your
+   laptop's current IP does not authorize Render's servers.
+3. Confirm the Atlas cluster is active. Copy a fresh URI from **Connect → Drivers
+   → Python** into Render's MONGODB_URI. Use the raw URI without quotes/Markdown;
+   URL-encode special characters in the database password. SRV and standard
+   replica-set URIs are both supported; do not invent a hostname.
+4. Redeploy the latest commit, then visit `/api/storage/status`. `ready: true`
+   confirms an actual MongoDB ping; HTTP 503 means database access still needs
+   attention. `/health` only confirms the crop/web service, not database access.
+
+The app now defers database initialization until a storage/chat request, uses an
+explicit certificate trust bundle, and retries failed initialization on subsequent
+requests. Crop inference stays available during an Atlas outage. Chat returns a
+clear error and never silently saves to ephemeral SQLite instead. No TLS
+verification bypasses are enabled. If the same error persists after verifying the
+allowlist and cluster-generated URI, check Atlas cluster events/support for a
+server-side TLS issue rather than disabling TLS.

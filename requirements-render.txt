@@ -8,3 +8,4 @@ requests>=2.31,<3
 edge-tts==7.2.8
 waitress==3.0.2
 pymongo[srv]>=4.10,<5
+certifi>=2024.2.2

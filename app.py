@@ -21,7 +21,7 @@ import requests
 import assistant_service
 import speech_service
 from languages import LANGUAGE_MAP
-from chat_store import ChatStore, MongoChatStore
+from chat_store import ChatStore, MongoChatStore, StorageUnavailable
 
 # Exact TFDS PlantVillage class order used by the notebook (not alphabetical).
 # https://github.com/tensorflow/datasets/blob/v4.9.7/tensorflow_datasets/datasets/plant_village/plant_village_dataset_builder.py
@@ -121,6 +121,19 @@ def assistant_status():
     return jsonify(assistant_service.status())
 
 
+@app.errorhandler(StorageUnavailable)
+def storage_unavailable(error):
+    app.logger.warning('MongoDB unavailable (%s). Check Atlas network access, cluster status, TLS and database credentials.',
+                       type(error.__cause__).__name__)
+    return jsonify(error='storageError'), 503
+
+
+@app.get('/api/storage/status')
+def storage_status():
+    store.check_connection()
+    return jsonify(ready=True, provider='MongoDB' if isinstance(store, MongoChatStore) else 'SQLite')
+
+
 @app.get('/api/languages')
 def language_status():
     root=Path(__file__).parent/'static/locales'
@@ -175,6 +188,7 @@ def chat():
         return jsonify(error='invalid_request'), 400
     if sum(len(m['content']) for m in messages) > 18000 or messages[-1]['role'] != 'user':
         return jsonify(error='invalid_request'), 400
+    store.check_connection()
     if not assistant_service.status()['ready']: return jsonify(error='offline'), 503
     if not chat_slots.acquire(blocking=False): return jsonify(error='assistantBusy'), 429
     try:

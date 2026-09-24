@@ -114,6 +114,7 @@
   "promptPlan": "Help me plan my next farming steps. Ask me about my crop and location.",
   "composerHint": "Enter to send. Shift + Enter for a new line.",
   "localChat": "Chats saved on this server",
+  "storageError": "Chat storage is temporarily unavailable. Your message was not saved. Please try again later. Crop analysis is still available.",
   "cloudChat": "Chat sent to Groq; history saved in MongoDB",
   "languagePriority": "Your languages",
   "languageSouth": "South Indian languages",
