@@ -167,7 +167,7 @@ Checks and evidence:
 - `artifacts/app-checks.json`: browser results and observed installed voice names.
 - `scripts/check_assistant.py` and `artifacts/assistant-samples.json`: real local
   model responses in English, Hindi and Telugu; connectivity/script checks only.
-- `artifacts/translation-status.json`: language draft status and quality blockers.
+- `artifacts/locale-checks.json`: enabled language catalogs and script-integrity checks.
 
 Browser checks require `playwright` and an installed Chrome browser. Training,
 translation generation and chat share this machine's CPU; running them together
@@ -175,6 +175,8 @@ increases response times. Do not replace the deployed model merely because a
 training run finishes; compare its evaluation before promotion.
 
 ## Deployment and chat storage
+
+Product and technology overview: [Farm AI product brief](docs/FARM_AI_PRODUCT_BRIEF.md).
 
 **Free hosting:** follow [FREE_DEPLOYMENT.md](FREE_DEPLOYMENT.md). The supplied
 `render.yaml` selects Render's Free plan, MongoDB Atlas stores chats, and Groq's
